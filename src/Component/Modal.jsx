@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-
 import "./Modal.css";
 
 const Modal = () => {
@@ -19,33 +18,33 @@ const Modal = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const { username, email, phone, dob } = formData;
     const currentDate = new Date();
     const inputDate = new Date(dob);
 
     if (inputDate > currentDate) {
-      window.alert("Invalid Date of Birth, it cannot be in future.");
+      window.alert("Invalid Date of Birth, it cannot be in the future.");
       return;
     }
+
     if (!/^\d{10}$/.test(phone)) {
       window.alert(
         "Invalid phone number. Please enter a 10-digit phone number."
       );
       return;
     }
+
     if (e.target.checkValidity()) {
-      setModalChange(false);
+      setModalChange(false); // Close the modal if everything is valid
       console.log("Form submitted successfully");
     } else {
-      e.target.reportValidity();
+      e.target.reportValidity(); // Trigger default validation for other fields
     }
   };
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    if (id === "dob") {
-      document.getElementById("dob").setCustomValidity("");
-    }
     setFormData({
       ...formData,
       [id]: value,
@@ -54,7 +53,7 @@ const Modal = () => {
 
   const handleClickOutside = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
-      setModalChange(false);
+      setModalChange(false); // Close modal on outside click
     }
   };
 
@@ -66,17 +65,18 @@ const Modal = () => {
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside); // Cleanup
     };
   }, [modalChange]);
 
   return (
-    <div className="modal">
+    <div className="modal-container">
       <h1>User Detail Modal</h1>
       <button onClick={handleClick}>Open Form</button>
+
       {modalChange && (
         <>
-          <div className="modal-overlay" onClick={handleClickOutside}></div>
+          <div className="modal-overlay"></div>
 
           <div className="modal-content" ref={modalRef}>
             <h3>Fill Details</h3>
@@ -98,7 +98,7 @@ const Modal = () => {
                 onChange={handleChange}
                 pattern=".+@.+\..+"
                 required
-                placeholder="Please enter a valid email address."
+                title="Please enter a valid email address."
               />
 
               <label htmlFor="phone">Phone Number:</label>
@@ -108,7 +108,7 @@ const Modal = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 required
-                placeholder="Please enter a 10-digit phone number."
+                title="Please enter a 10-digit phone number."
               />
 
               <label htmlFor="dob">Date of Birth:</label>
