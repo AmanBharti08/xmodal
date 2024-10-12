@@ -13,7 +13,7 @@ const Modal = () => {
   const modalRef = useRef(null);
 
   const handleClick = () => {
-    setModalChange(!modalChange);
+    setModalChange(true); // Set modal to open
   };
 
   const handleSubmit = (e) => {
@@ -29,17 +29,15 @@ const Modal = () => {
     }
 
     if (!/^\d{10}$/.test(phone)) {
-      window.alert(
-        "Invalid phone number. Please enter a 10-digit phone number."
-      );
+      window.alert("Invalid phone number. Please enter a 10-digit phone number.");
       return;
     }
 
     if (e.target.checkValidity()) {
-      setModalChange(false); // Close the modal if everything is valid
+      setModalChange(false); // Close modal if form is valid
       console.log("Form submitted successfully");
     } else {
-      e.target.reportValidity(); // Trigger default validation for other fields
+      e.target.reportValidity(); // Trigger built-in HTML form validation
     }
   };
 
@@ -65,7 +63,7 @@ const Modal = () => {
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside); // Cleanup
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [modalChange]);
 
@@ -78,52 +76,55 @@ const Modal = () => {
         <>
           <div className="modal-overlay"></div>
 
-          <div className="modal-content" ref={modalRef}>
-            <h3>Fill Details</h3>
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="username">Username:</label>
-              <input
-                type="text"
-                id="username"
-                value={formData.username}
-                onChange={handleChange}
-                required
-              />
+          <div className="modal" ref={modalRef}>
+            {/* Ensure modal has className "modal" */}
+            <div className="modal-content">
+              <h3>Fill Details</h3>
+              <form onSubmit={handleSubmit}>
+                <label htmlFor="username">Username:</label>
+                <input
+                  type="text"
+                  id="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                />
 
-              <label htmlFor="email">Email Address:</label>
-              <input
-                type="email"
-                id="email"
-                value={formData.email}
-                onChange={handleChange}
-                pattern=".+@.+\..+"
-                required
-                title="Please enter a valid email address."
-              />
+                <label htmlFor="email">Email Address:</label>
+                <input
+                  type="email"
+                  id="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  pattern=".+@.+\..+"
+                  required
+                  title="Please enter a valid email address."
+                />
 
-              <label htmlFor="phone">Phone Number:</label>
-              <input
-                type="tel"
-                id="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                required
-                title="Please enter a 10-digit phone number."
-              />
+                <label htmlFor="phone">Phone Number:</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                  title="Please enter a 10-digit phone number."
+                />
 
-              <label htmlFor="dob">Date of Birth:</label>
-              <input
-                type="date"
-                id="dob"
-                value={formData.dob}
-                onChange={handleChange}
-                required
-              />
+                <label htmlFor="dob">Date of Birth:</label>
+                <input
+                  type="date"
+                  id="dob"
+                  value={formData.dob}
+                  onChange={handleChange}
+                  required
+                />
 
-              <button className="submit-button" type="submit">
-                Submit
-              </button>
-            </form>
+                <button className="submit-button" type="submit">
+                  Submit
+                </button>
+              </form>
+            </div>
           </div>
         </>
       )}
