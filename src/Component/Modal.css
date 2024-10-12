@@ -1,48 +1,69 @@
 .modal {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure the modal is on top */
   }
   
   .modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    background-color: white; /* Modal background color */
+    border-radius: 8px;
     padding: 20px;
-    background: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    width: 400px; /* Set a width for the modal */
+    max-width: 90%; /* Responsive width */
+    position: relative;
   }
   
   .modal-content h3 {
-    margin: 0;
+    margin-top: 0; /* Remove top margin for the heading */
   }
   
-  .modal-content form {
-    display: flex;
-    flex-direction: column;
+  label {
+    display: block;
+    margin: 10px 0 5px; /* Spacing for labels */
   }
   
-  .modal-content label {
-    margin: 10px 0 5px;
-  }
-  
-  .modal-content input {
+  input {
+    width: 100%; /* Full width for input fields */
     padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Slightly rounded corners */
+    box-sizing: border-box; /* Include padding in width */
+  }
+  
+  input:focus {
+    border-color: #007BFF; /* Blue border on focus */
+    outline: none; /* Remove default outline */
   }
   
   .submit-button {
-    padding: 10px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    background-color: #007BFF; /* Blue background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 4px; /* Slightly rounded corners */
+    padding: 10px 15px; /* Padding for the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-top: 15px; /* Spacing above the button */
+    transition: background-color 0.3s; /* Smooth transition */
   }
   
   .submit-button:hover {
-    background: #0056b3;
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  button {
+    cursor: pointer; /* Pointer cursor for buttons */
+  }
+  
+  button:focus {
+    outline: none; /* Remove default outline on focus */
   }
   
