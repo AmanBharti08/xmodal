@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./Modal.css";
 
 const Modal = () => {
-  const [modalChange, setModalChange] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -13,7 +13,7 @@ const Modal = () => {
   const modalRef = useRef(null);
 
   const handleClick = () => {
-    setModalChange(true); // Set modal to open
+    setModalOpen(true); // Open modal
   };
 
   const handleSubmit = (e) => {
@@ -23,22 +23,34 @@ const Modal = () => {
     const currentDate = new Date();
     const inputDate = new Date(dob);
 
-    if (inputDate > currentDate) {
-      window.alert("Invalid Date of Birth, it cannot be in the future.");
+    // Validation for empty fields
+    if (!username || !email || !phone || !dob) {
+      alert("Please fill out all fields.");
       return;
     }
 
+    // Validate email format
+    if (!email.includes("@")) {
+      alert("Invalid email. Please check your email address.");
+      return;
+    }
+
+    // Validate phone number format
     if (!/^\d{10}$/.test(phone)) {
-      window.alert("Invalid phone number. Please enter a 10-digit phone number.");
+      alert("Invalid phone number. Please enter a 10-digit phone number.");
       return;
     }
 
-    if (e.target.checkValidity()) {
-      setModalChange(false); // Close modal if form is valid
-      console.log("Form submitted successfully");
-    } else {
-      e.target.reportValidity(); // Trigger built-in HTML form validation
+    // Validate date of birth
+    if (inputDate > currentDate) {
+      alert("Invalid date of birth. It cannot be in the future.");
+      return;
     }
+
+    // If all validations pass
+    alert("Form submitted successfully!"); // Replace with actual submission logic
+    setFormData({ username: "", email: "", phone: "", dob: "" }); // Reset form
+    setModalOpen(false); // Close modal
   };
 
   const handleChange = (e) => {
@@ -51,12 +63,12 @@ const Modal = () => {
 
   const handleClickOutside = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
-      setModalChange(false); // Close modal on outside click
+      setModalOpen(false); // Close modal on outside click
     }
   };
 
   useEffect(() => {
-    if (modalChange) {
+    if (modalOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -65,68 +77,53 @@ const Modal = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [modalChange]);
+  }, [modalOpen]);
 
   return (
-    <div className="modal-container">
+    <div className="modal">
       <h1>User Detail Modal</h1>
       <button onClick={handleClick}>Open Form</button>
-
-      {modalChange && (
-        <>
-          <div className="modal-overlay"></div>
-
-          <div className="modal" ref={modalRef}>
-            {/* Ensure modal has className "modal" */}
-            <div className="modal-content">
-              <h3>Fill Details</h3>
-              <form onSubmit={handleSubmit}>
-                <label htmlFor="username">Username:</label>
-                <input
-                  type="text"
-                  id="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  required
-                />
-
-                <label htmlFor="email">Email Address:</label>
-                <input
-                  type="email"
-                  id="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  pattern=".+@.+\..+"
-                  required
-                  title="Please enter a valid email address."
-                />
-
-                <label htmlFor="phone">Phone Number:</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                  title="Please enter a 10-digit phone number."
-                />
-
-                <label htmlFor="dob">Date of Birth:</label>
-                <input
-                  type="date"
-                  id="dob"
-                  value={formData.dob}
-                  onChange={handleChange}
-                  required
-                />
-
-                <button className="submit-button" type="submit">
-                  Submit
-                </button>
-              </form>
-            </div>
-          </div>
-        </>
+      {modalOpen && (
+        <div className="modal-content" ref={modalRef}>
+          <h3>Fill Details</h3>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="email">Email Address:</label>
+            <input
+              type="email"
+              id="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="phone">Phone Number:</label>
+            <input
+              type="tel"
+              id="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              required
+            />
+            <label htmlFor="dob">Date of Birth:</label>
+            <input
+              type="date"
+              id="dob"
+              value={formData.dob}
+              onChange={handleChange}
+              required
+            />
+            <button className="submit-button" type="submit">
+              Submit
+            </button>
+          </form>
+        </div>
       )}
     </div>
   );
