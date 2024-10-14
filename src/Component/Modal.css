@@ -3,6 +3,11 @@
   margin: 0;
 }
 
+.modal {
+  width: 100%;
+  height: 100%;
+}
+
 button {
   padding: 10px 20px;
   font-size: large;
@@ -42,11 +47,11 @@ input {
   border-radius: 5px;
   border: 1px solid black;
 }
-input:required{
+input:required {
   border-color: #800000;
 }
 
-input:valid{
+input:valid {
   border: 1px solid greenyellow;
 }
 
