@@ -59,31 +59,38 @@ const Modal = () => {
   }, [modalState]);
 
   return (
-    <div className="modal">
+    <div className="container">
       <h1>User Details Modal</h1>
       <button onClick={openformbutton}>Open Form</button>
       {modalState && (
-        <div className="modal-content">
+        <div className="modal">
           <div className="background"></div>
-          <form ref={formRef}>
-            <h2>Fill Details</h2>
-            <label htmlFor="username">Username:</label>
-            <input type="text" id="username" required />
-            <label htmlFor="email">Email Address:</label>
-            <input
-              type="email"
-              id="email"
-              required
-              placeholder="xyz@domain.com"
-            />
-            <label htmlFor="phone">Phone Number:</label>
-            <input type="phone" id="phone" required placeholder="9123456789" />
-            <label htmlFor="dob">Date of Birth:</label>
-            <input type="date" id="dob" required />
-            <button className="submit-button" onClick={handleSubmit}>
-              Submit
-            </button>
-          </form>
+          <div className="modal-content">
+            <form ref={formRef}>
+              <h2>Fill Details</h2>
+              <label htmlFor="username">Username:</label>
+              <input type="text" id="username" required />
+              <label htmlFor="email">Email Address:</label>
+              <input
+                type="email"
+                id="email"
+                required
+                placeholder="xyz@domain.com"
+              />
+              <label htmlFor="phone">Phone Number:</label>
+              <input
+                type="phone"
+                id="phone"
+                required
+                placeholder="9123456789"
+              />
+              <label htmlFor="dob">Date of Birth:</label>
+              <input type="date" id="dob" required />
+              <button className="submit-button" onClick={handleSubmit}>
+                Submit
+              </button>
+            </form>
+          </div>
         </div>
       )}
     </div>
