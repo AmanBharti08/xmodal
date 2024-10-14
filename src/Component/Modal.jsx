@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 import "./Modal.css";
 
@@ -17,6 +17,15 @@ const Modal = () => {
       form.reportValidity();
       return;
     }
+
+    const phoneInput = form.querySelector("#phone");
+    const phoneNumber = phoneInput.value;
+
+    if (phoneNumber.length !== 10) {
+      alert("Invalid phone number. Please enter a 10-digit phone number.");
+      return;
+    }
+
     const dobInput = form.querySelector("#dob");
     const selectedDate = new Date(dobInput.value);
     const currentDate = new Date();
@@ -28,6 +37,27 @@ const Modal = () => {
 
     setModalState(false);
   };
+
+  const handleClickOutside = (event) => {
+    if (formRef.current && !formRef.current.contains(event.target)) {
+      closeModal();
+    }
+  };
+
+  const closeModal = () => {
+    setModalState(false);
+  };
+
+  useEffect(() => {
+    if (modalState) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [modalState]);
+
   return (
     <div className="modal">
       <h1>User Details Modal</h1>
