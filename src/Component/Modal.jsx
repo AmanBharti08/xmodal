@@ -7,6 +7,7 @@ const Modal = () => {
   const formRef = useRef();
 
   const openformbutton = () => {
+    console.log("form Opened")
     setModalState(true);
   };
 
@@ -52,7 +53,6 @@ const Modal = () => {
     if (modalState) {
       document.addEventListener("mousedown", handleClickOutside);
     }
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -64,8 +64,8 @@ const Modal = () => {
       <button onClick={openformbutton}>Open Form</button>
       {modalState && (
         <div className="modal">
-          <div className="background"></div>
           <div className="modal-content">
+          <div className="background"></div>
             <form ref={formRef}>
               <h2>Fill Details</h2>
               <label htmlFor="username">Username:</label>
