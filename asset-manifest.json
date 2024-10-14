@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/xmodal/static/css/main.28013042.css",
-    "main.js": "/xmodal/static/js/main.da8ed4c2.js",
+    "main.js": "/xmodal/static/js/main.607f6395.js",
     "static/js/453.5a62c02c.chunk.js": "/xmodal/static/js/453.5a62c02c.chunk.js",
     "index.html": "/xmodal/index.html",
     "main.28013042.css.map": "/xmodal/static/css/main.28013042.css.map",
-    "main.da8ed4c2.js.map": "/xmodal/static/js/main.da8ed4c2.js.map",
+    "main.607f6395.js.map": "/xmodal/static/js/main.607f6395.js.map",
     "453.5a62c02c.chunk.js.map": "/xmodal/static/js/453.5a62c02c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.28013042.css",
-    "static/js/main.da8ed4c2.js"
+    "static/js/main.607f6395.js"
   ]
 }
